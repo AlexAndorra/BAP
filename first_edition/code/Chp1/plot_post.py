@@ -38,11 +38,21 @@ def plot_post(sample, alpha=0.05, show_mode=True, kde_plot=True, bins=50,
 
     """       
 
-    post_summary = {'mean':0,'median':0,'mode':0, 'alpha':0,'hpd_low':0,
-                   'hpd_high':0, 'comp_val':0, 'pc_gt_comp_val':0, 'ROPE_low':0,
-                   'ROPE_high':0, 'pc_in_ROPE':0}
+    post_summary = {
+        'median': 0,
+        'mode': 0,
+        'alpha': 0,
+        'hpd_low': 0,
+        'hpd_high': 0,
+        'comp_val': 0,
+        'pc_gt_comp_val': 0,
+        'ROPE_low': 0,
+        'ROPE_high': 0,
+        'pc_in_ROPE': 0,
+        'mean': round(np.mean(sample), roundto),
+    }
 
-    post_summary['mean'] = round(np.mean(sample), roundto)
+
     post_summary['median'] = round(np.median(sample), roundto)
     post_summary['alpha'] = alpha
 
@@ -70,7 +80,10 @@ def plot_post(sample, alpha=0.05, show_mode=True, kde_plot=True, bins=50,
     hpd_label = ''
     for value in hpd:
         plt.plot(value, [0, 0], linewidth=10, color='b')
-        hpd_label = hpd_label +  '{:g} {:g}\n'.format(round(value[0], roundto), round(value[1], roundto)) 
+        hpd_label += '{:g} {:g}\n'.format(
+            round(value[0], roundto), round(value[1], roundto)
+        )
+
     plt.plot(0, 0, linewidth=4, color='b', label='hpd {:g}%\n{}'.format((1-alpha)*100, hpd_label))
     ## Display the ROPE.
     if ROPE is not None:

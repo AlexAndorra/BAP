@@ -42,8 +42,7 @@ def hpd_grid(sample, alpha=0.05, roundto=2):
             break
     hdv.sort()
     diff = (u-l)/20  # differences of 5%
-    hpd = []
-    hpd.append(round(min(hdv), roundto))
+    hpd = [round(min(hdv), roundto)]
     for i in range(1, len(hdv)):
         if hdv[i]-hdv[i-1] >= diff:
             hpd.append(round(hdv[i-1], roundto))
